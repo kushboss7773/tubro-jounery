@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kushal Travels</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f8fa;
+      color: #222;
+    }
+    header {
+      background: #0078d7;
+      color: #fff;
+      padding: 1rem 0;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover {
+      color: #ff9800;
+    }
+    .hero {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      color: #fff;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 8px #000;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 8px #000;
+    }
+    .btn {
+      background: #ff9800;
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #e65100;
+    }
+    section {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    #about, #services, #contact {
+      margin-top: 2rem;
+    }
+    #services ul {
+      text-align: left;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    #services li {
+      margin-bottom: 0.5rem;
+    }
+    #destinations {
+      background: #f9f9f9;
+      text-align: center;
+    }
+    #destinations h2 {
+      margin-bottom: 1rem;
+    }
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .destination {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .destination h3 {
+      margin-top: 0.5rem;
+      color: #0078d7;
+    }
+    .destination p {
+      margin: 0.5rem 0;
+    }
+    .destination strong {
+      color: #ff5722;
+    }
+    .book-btn {
+      margin-top: 10px;
+      background: #0078d7;
+      color: #fff;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .book-btn:hover {
+      background: #005fa3;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    label {
+      text-align: left;
+      font-weight: bold;
+    }
+    input, textarea {
+      padding: 0.5rem;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 1rem;
+      resize: vertical;
+    }
+    button[type="submit"] {
+      background: #0078d7;
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button[type="submit"]:hover {
+      background: #005fa3;
+    }
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+    /* Booking Modal */
+    #bookingModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    #bookingModal .modal-content {
+      background: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 8px;
+      max-width: 350px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      text-align: left;
+    }
+    #closeModal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: #888;
+    }
+    #closeModal:hover {
+      color: #e65100;
+    }
+    @media (max-width: 600px) {
+      .hero {
+        padding: 2rem 1rem;
+      }
+      section {
+        padding: 1rem 0.5rem;
+      }
+      .destinations-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kushal Travels</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h2>Explore the World with Kushal Travels</h2>
+    <p>Your trusted travel partner for unforgettable journeys.</p>
+    <a href="#services" class="btn">Discover More</a>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Kushal Travels Pvt. Ltd. is a leading travel agency offering personalized travel experiences. From exotic destinations to local adventures, we make your travel dreams come true.</p>
+  </section>
+
+  <section id="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Customized Tour Packages</li>
+      <li>Flight and Hotel Bookings</li>
+      <li>Adventure and Leisure Trips</li>
+      <li>Corporate Travel Solutions</li>
+    </ul>
+  </section>
+
+  <section id="destinations">
+    <h2>Popular Destinations</h2>
+    <div class="destinations-grid">
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80" alt="Manali" style="width:100%;border-radius:4px;">
+        <h3>Manali</h3>
+        <p>Experience the serene beauty of the Himalayas in Manali.</p>
+        <p><strong>Budget:</strong> ₹10,000</p>
+        <button class="book-btn" data-place="Manali">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Ladakh" style="width:100%;border-radius:4px;">
+        <h3>Ladakh</h3>
+        <p>Explore the rugged landscapes and monasteries of Ladakh.</p>
+        <p><strong>Budget:</strong> ₹25,000</p>
+        <button class="book-btn" data-place="Ladakh">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80" alt="Shimla" style="width:100%;border-radius:4px;">
+        <h3>Shimla</h3>
+        <p>Visit the Queen of Hills for a refreshing mountain retreat.</p>
+        <p><strong>Budget:</strong> ₹8,000</p>
+        <button class="book-btn" data-place="Shimla">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" alt="Goa" style="width:100%;border-radius:4px;">
+        <h3>Goa</h3>
+        <p>Relax on the sunny beaches and enjoy the vibrant nightlife of Goa.</p>
+        <p><strong>Budget:</strong> ₹15,000</p>
+        <button class="book-btn" data-place="Goa">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400&q=80" alt="Jaipur" style="width:100%;border-radius:4px;">
+        <h3>Jaipur</h3>
+        <p>Discover the royal heritage and palaces of the Pink City.</p>
+        <p><strong>Budget:</strong> ₹12,000</p>
+        <button class="book-btn" data-place="Jaipur">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1509228468518-c5eeecbff44a?auto=format&fit=crop&w=400&q=80" alt="Kerala" style="width:100%;border-radius:4px;">
+        <h3>Kerala</h3>
+        <p>Experience the backwaters, beaches, and lush greenery of Kerala.</p>
+        <p><strong>Budget:</strong> ₹18,000</p>
+        <button class="book-btn" data-place="Kerala">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Agra" style="width:100%;border-radius:4px;">
+        <h3>Agra</h3>
+        <p>Visit the iconic Taj Mahal and explore Mughal history.</p>
+        <p><strong>Budget:</strong> ₹7,000</p>
+        <button class="book-btn" data-place="Agra">Book Now</button>
+      </div>
+      <div class="destination">
+        <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=400&q=80" alt="Rishikesh" style="width:100%;border-radius:4px;">
+        <h3>Rishikesh</h3>
+        <p>Enjoy adventure sports and spiritual retreats in Rishikesh.</p>
+        <p><strong>Budget:</strong> ₹9,000</p>
+        <button class="book-btn" data-place="Rishikesh">Book Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact & Booking</h2>
+    <p>
+      <strong>Phone/WhatsApp:</strong> <a href="tel:9024241837" style="color:#0078d7;">9024241837</a><br>
+      <strong>Email:</strong> <a href="mailto:kushal7773singh@gmail.com" style="color:#0078d7;">kushal7773singh@gmail.com</a>
+    </p>
+    <h3>How to Book & Pay</h3>
+    <ol style="text-align:left;max-width:400px;margin:0 auto 1.5rem;">
+      <li>Contact us via phone, WhatsApp, or email to confirm your package and dates.</li>
+      <li>Pay using any UPI app (PhonePe, Google Pay, Paytm) to this number:<br>
+        <strong style="color:#ff5722;font-size:1.2em;">9024241837</strong>
+      </li>
+      <li>After payment, send the screenshot and your details to our WhatsApp or email.</li>
+      <li>We will confirm your booking and send you all details.</li>
+    </ol>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Kushal Travels Pvt. Ltd. All rights reserved.</p>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal">
+    <div class="modal-content">
+      <span id="closeModal">&times;</span>
+      <h3>Book <span id="modalPlace"></span></h3>
+      <form id="bookingForm">
+        <input type="hidden" id="destination" name="destination">
+        <label for="bookName">Your Name:</label>
+        <input type="text" id="bookName" name="bookName" required>
+        <label for="bookPhone">Phone:</label>
+        <input type="text" id="bookPhone" name="bookPhone" required>
+        <label for="bookEmail">Email:</label>
+        <input type="email" id="bookEmail" name="bookEmail" required>
+        <button type="submit">Book & Get Payment Info</button>
+      </form>
+      <div id="bookingSuccess" style="display:none;margin-top:1rem;">
+        <p><strong>Thank you for booking!</strong></p>
+        <p>Pay using PhonePe, Google Pay, or Paytm to <strong>9024241837</strong>.<br>
+        Send payment screenshot and your details to WhatsApp or email:<br>
+        <strong>9024241837</strong> / <strong>kushal7773singh@gmail.com</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Book Now button logic
+    document.querySelectorAll('.book-btn').forEach(btn => {
+      btn.onclick = function() {
+        document.getElementById('bookingModal').style.display = 'flex';
+        document.getElementById('modalPlace').textContent = this.dataset.place;
+        document.getElementById('destination').value = this.dataset.place;
+        document.getElementById('bookingForm').style.display = '';
+        document.getElementById('bookingSuccess').style.display = 'none';
+      }
+    });
+    document.getElementById('closeModal').onclick = function() {
+      document.getElementById('bookingModal').style.display = 'none';
+    };
+    document.getElementById('bookingForm').onsubmit = function(e) {
+      e.preventDefault();
+      document.getElementById('bookingForm').style.display = 'none';
+      document.getElementById('bookingSuccess').style.display = '';
+      setTimeout(function() {
+        document.getElementById('bookingSuccess').style.display = '';
+      }, 200);
+    };
+    // Optional: close modal when clicking outside
+    document.getElementById('bookingModal').onclick = function(e) {
+      if(e.target === this) this.style.display = 'none';
+    };
+    // Contact form alert
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Thank you for contacting Kushal Travels! We will get back to you soon.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
